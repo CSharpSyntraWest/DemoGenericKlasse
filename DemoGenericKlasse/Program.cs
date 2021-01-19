@@ -3,12 +3,12 @@ using System.Collections;
 
 namespace DemoGenericKlasse
 {
-    class Factory<T>  where T : IPersoon//,IEnumerable
+    class Factory<T> : Persoon where T : new()
     {
         private T _field;
         public Factory()
         {
-            _field = default;
+            _field = new T(); //default;
         }
         public Factory(T field)
         {
