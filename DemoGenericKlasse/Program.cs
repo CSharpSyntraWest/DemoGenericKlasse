@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections;
 
 namespace DemoGenericKlasse
 {
-    class Factory<T>
+    class Factory<T>  where T : IPersoon//,IEnumerable
     {
         private T _field;
         public Factory()
@@ -28,16 +29,32 @@ namespace DemoGenericKlasse
             return "Naar string:" + param.ToString();
         }
     }
+    class Persoon : IPersoon//,IEnumerable
+    {
+        public string Naam { get; set; }
+
+        //public IEnumerator GetEnumerator()
+        //{
+        //    throw new NotImplementedException();
+        //}
+    }
+    class Docent : Persoon { }
+    class Student:Persoon {   }
     class Program
     {
         static void Main(string[] args)
         {
-            Factory<int> intFactory = new Factory<int>();
-            Console.WriteLine("Waarde van _field int :" + intFactory.Property);
-            Factory<DateTime> dateTimeFact = new Factory<DateTime>();
-            Console.WriteLine("Waarde van _field DateTime:" + dateTimeFact.Property);
-            Console.WriteLine(intFactory.Methode2(5));
-
+            Factory<Persoon> persoonFactory = new Factory<Persoon>();
+            Console.WriteLine("Waarde van _field int :" + persoonFactory.Property);
+            Factory<Docent> docentFactory = new Factory<Docent>();
+            Console.WriteLine("Waarde van _field int :" + docentFactory.Property);
+            Factory<Student> studentFactory = new Factory<Student>();
+            Console.WriteLine("Waarde van _field int :" + studentFactory.Property);
+            //Factory<DateTime> dateTimeFact = new Factory<DateTime>();
+            //Console.WriteLine("Waarde van _field DateTime:" + dateTimeFact.Property);
+            //Console.WriteLine(intFactory.Methode2(5));
+            //Factory<DateTime> dateTimeFact2 = new Factory<DateTime>(DateTime.Today);
+            //Console.WriteLine("Waarde van _field DateTime2:" + dateTimeFact2.Property);
             Console.ReadKey();
         }
     }
